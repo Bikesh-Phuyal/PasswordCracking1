@@ -9,15 +9,11 @@
   "brute force" algorithm. Works on passwords that consist only of 2 uppercase
   letters and a 2 digit integer. Your personalised data set is included in the
   code. 
-
   Compile with:
     cc -o CrackAZ99-With-Data1 CrackAZ99-With-Data1.c -lcrypt
-
   If you want to analyse the results then use the redirection operator to send
   output to a file that you can view using an editor or the less utility:
-
     ./CrackAZ99-With-Data1 > results.txt
-
   Dr Kevan Buckley, University of Wolverhampton, 2018
 ******************************************************************************/
 int n_passwords = 4;
@@ -55,11 +51,11 @@ void crack(char *salt_and_encrypted){
 
   substr(salt, salt_and_encrypted, 0, 6);
 
-  for(x='A'; x<='Z'; x++){
-    for(y='A'; y<='Z'; y++){
-     for(w='A'; w<='Z';w++){
+  for(x='A'; x<='Z'; x++){ //first initial loop
+    for(y='A'; y<='Z'; y++){ //second initial loop
+     for(w='A'; w<='Z';w++){ //third initial loop
 
-      for(z=0; z<=99; z++){
+      for(z=0; z<=99; z++){ //loop for last two digits 00 to 99
         sprintf(plain, "%c%c%c%02d", x, y, w, z); 
         enc = (char *) crypt(plain, salt);
         count++;
@@ -75,7 +71,7 @@ void crack(char *salt_and_encrypted){
   printf("%d solutions explored\n", count);
 }
 
-
+//function for time calculation
 int time_difference(struct timespec *start, struct timespec *finish, 
                               long long int *difference) {
   long long int ds =  finish->tv_sec - start->tv_sec; 
